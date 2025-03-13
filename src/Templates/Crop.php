@@ -68,6 +68,11 @@ class Crop implements ModifierInterface
             $width = (int) trim($coordsArray[2]);
             $height = (int) trim($coordsArray[3]);
             
+            // Skip cropping if width or height is 0, or if all coordinates are 0
+            if ($width <= 0 || $height <= 0 || ($x === 0 && $y === 0 && $width === 0 && $height === 0)) {
+                return $image;
+            }
+            
             // Apply crop
             return $image->crop($width, $height, $x, $y);
         }
