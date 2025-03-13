@@ -54,14 +54,17 @@ class Large implements ModifierInterface
 		$width  = $image->width();
 		$height = $image->height();
 
-		// Resize landscape image
-		if ($width > $height && $width >= $this->max_width)
-		{
-			return $image->resize($this->max_width, null);
-		}
-		else if ($height >= $this->max_height)
-		{
-			return $image->resize(null, $this->max_height);
+		// Calculate aspect ratios
+		$width_ratio = $width / $this->max_width;
+		$height_ratio = $height / $this->max_height;
+
+		// Determine which dimension needs to be constrained
+		if ($width_ratio > 1 || $height_ratio > 1) {
+			$resize_ratio = max($width_ratio, $height_ratio);
+			$new_width = round($width / $resize_ratio);
+			$new_height = round($height / $resize_ratio);
+			
+			return $image->resize($new_width, $new_height);
 		}
 		
 		return $image;
