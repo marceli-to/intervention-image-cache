@@ -257,6 +257,25 @@ class CustomCrop implements ModifierInterface
 }
 ```
 
+## Testing
+
+The package includes a comprehensive test suite. To run the tests:
+
+```bash
+composer test
+```
+
+Or you can run PHPUnit directly:
+
+```bash
+./vendor/bin/phpunit
+```
+
+The test suite includes:
+- Unit tests for template classes
+- Unit tests for the ImageCache class
+- Feature tests for the HTTP endpoints
+
 ## License
 
 The MIT License (MIT).

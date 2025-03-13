@@ -8,6 +8,11 @@
 			"MarceliTo\\InterventionImageCache\\": "src/"
 		}
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"MarceliTo\\InterventionImageCache\\Tests\\": "tests/"
+		}
+	},
 	"authors": [
 		{
 			"name": "marceli.to",
@@ -20,6 +25,14 @@
 		"intervention/image": "^3.0",
 		"illuminate/support": "^10.0|^11.0",
 		"illuminate/filesystem": "^10.0|^11.0"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^10.0",
+		"orchestra/testbench": "^8.0|^9.0"
+	},
+	"scripts": {
+		"test": "vendor/bin/phpunit",
+		"test-coverage": "vendor/bin/phpunit --coverage-html coverage"
 	},
 	"extra": {
 		"laravel": {
