@@ -27,6 +27,7 @@ return [
 		'large' => \MarceliTo\InterventionImageCache\Templates\Large::class,
 		'small' => \MarceliTo\InterventionImageCache\Templates\Small::class,
 		'thumbnail' => \MarceliTo\InterventionImageCache\Templates\Thumbnail::class,
+		'crop' => \MarceliTo\InterventionImageCache\Templates\Crop::class,
 	],
 	
 	// Route configuration
