@@ -3,6 +3,7 @@
 namespace MarceliTo\InterventionImageCache;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 class ImageCacheServiceProvider extends ServiceProvider
 {
@@ -36,5 +37,32 @@ class ImageCacheServiceProvider extends ServiceProvider
 				Commands\ClearImageCacheCommand::class,
 			]);
 		}
+		
+		// Register routes
+		if (config('image-cache.register_routes', true)) {
+			$this->registerRoutes();
+		}
+	}
+	
+	/**
+	 * Register the package routes.
+	 */
+	protected function registerRoutes()
+	{
+		Route::group($this->routeConfiguration(), function () {
+			Route::get('/img/{template}/{filename}/{maxW?}/{maxH?}/{coords?}', 
+				[\MarceliTo\InterventionImageCache\Http\Controllers\ImageController::class, 'getResponse'])
+				->name('image-cache.image');
+		});
+	}
+	
+	/**
+	 * Get the route group configuration.
+	 */
+	protected function routeConfiguration()
+	{
+		return [
+			'middleware' => config('image-cache.middleware', ['web']),
+		];
 	}
 }

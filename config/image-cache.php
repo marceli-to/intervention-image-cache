@@ -28,4 +28,10 @@ return [
 		'small' => \MarceliTo\InterventionImageCache\Templates\Small::class,
 		'thumbnail' => \MarceliTo\InterventionImageCache\Templates\Thumbnail::class,
 	],
+	
+	// Route configuration
+	'register_routes' => true,
+	
+	// Middleware for the image routes
+	'middleware' => ['web'],
 ];
