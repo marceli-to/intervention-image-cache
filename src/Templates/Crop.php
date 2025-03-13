@@ -86,19 +86,33 @@ class Crop implements ModifierInterface
         $width = $image->width();
         $height = $image->height();
         
-        // Resize based on provided max dimensions
+        // Calculate aspect ratios if both dimensions are provided
         if ($this->max_width && $this->max_height) {
-            // Constrain to both dimensions
-            return $image->resize($this->max_width, $this->max_height, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
-        } elseif ($this->max_width && $width > $this->max_width) {
-            // Constrain to width
-            return $image->resize($this->max_width, null);
-        } elseif ($this->max_height && $height > $this->max_height) {
-            // Constrain to height
-            return $image->resize(null, $this->max_height);
+            $width_ratio = $width / $this->max_width;
+            $height_ratio = $height / $this->max_height;
+            
+            if ($width_ratio > 1 || $height_ratio > 1) {
+                $resize_ratio = max($width_ratio, $height_ratio);
+                $new_width = round($width / $resize_ratio);
+                $new_height = round($height / $resize_ratio);
+                
+                return $image->resize($new_width, $new_height);
+            }
+        }
+        // Handle single dimension constraints
+        elseif ($this->max_width && $width > $this->max_width) {
+            $ratio = $width / $this->max_width;
+            return $image->resize(
+                $this->max_width,
+                round($height / $ratio)
+            );
+        }
+        elseif ($this->max_height && $height > $this->max_height) {
+            $ratio = $height / $this->max_height;
+            return $image->resize(
+                round($width / $ratio),
+                $this->max_height
+            );
         }
         
         return $image;
