@@ -11,15 +11,14 @@ return [
 	*/
 
 	// Cache path relative to storage_path()
-	'cache_path' => 'app/public/cache/images',
+	'cache_path' => 'app/public/uploads/cache/images',
 
 	// Cache lifetime in minutes (default: 30 days)
 	'lifetime' => 43200,
 
 	// Paths to search for original images
 	'paths' => [
-		public_path('images'),
-		storage_path('app/public/images'),
+		storage_path('app/public/uploads'),
 	],
 
 	// Available templates
